@@ -13,7 +13,12 @@ const TransactionList = ({
           key={index}
           actions={[
             <Button onClick={() => updateTransition(index)}>Редагувати</Button>,
-            <Button onClick={() => deleteTransaction(index)}>Видалити</Button>,
+            <Button
+              onClick={() => deleteTransaction(index)}
+              danger // Додано тип "danger"
+            >
+              Видалити
+            </Button>,
           ]}
         >
           <List.Item.Meta

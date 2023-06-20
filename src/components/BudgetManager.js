@@ -112,7 +112,9 @@ const BudgetManager = () => {
         <strong>Баланс:</strong> {income - expenses}
       </div>
       <div>
-        <Button onClick={() => setShowFrom(true)}>Транзакції</Button>
+        <Button type="primary" onClick={() => setShowFrom(true)}>
+          Транзакції
+        </Button>
       </div>
 
       {showFrom && (
