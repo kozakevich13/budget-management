@@ -1,19 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TransactionForm from "./TransactionForm";
 import TransactionList from "./TransactionList";
 
 const BudgetManager = () => {
-  const [income, setIncome] = useState(0);
-  const [expenses, setExpenses] = useState(0);
+  const [income, setIncome] = useState(() => {
+    const storedIncome = localStorage.getItem("income");
+    return storedIncome ? parseInt(storedIncome) : 0;
+  });
+
+  const [expenses, setExpenses] = useState(() => {
+    const storedExpenses = localStorage.getItem("expenses");
+    return storedExpenses ? parseInt(storedExpenses) : 0;
+  });
   const [showFrom, setShowFrom] = useState(false);
   const [transactionType, setTransactionType] = useState("");
-  const [transactions, setTransactions] = useState([]);
+  const [transactions, setTransactions] = useState(() => {
+    const storedTransactions = localStorage.getItem("transactions");
+    return storedTransactions ? JSON.parse(storedTransactions) : [];
+  });
   const [editMode, setEditMode] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [editTransaction, setEditTransaction] = useState({
     name: "",
     amount: "",
   });
+
+  useEffect(() => {
+    localStorage.setItem("income", income.toString());
+    localStorage.setItem("expenses", expenses.toString());
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+  }, [income, expenses, transactions]);
 
   const chooseTransitionType = (e) => {
     setTransactionType(e.target.value);
