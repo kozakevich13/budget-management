@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import TransactionForm from "./TransactionForm";
+import TransactionList from "./TransactionList";
 
 const BudgetManager = () => {
   const [income, setIncome] = useState(0);
@@ -105,21 +106,11 @@ const BudgetManager = () => {
         />
       )}
 
-      <div>
-        <h3>Транзакція:</h3>
-        <ul>
-          {transactions.map((transaction, index) => (
-            <li key={index}>
-              {transaction.name}: {transaction.amount} ({transaction.type}) -{" "}
-              {new Date(transaction.createdAt).toLocaleString()}
-              <button onClick={() => updateTransition(index)}>
-                Редагувати
-              </button>
-              <button onClick={() => deleteTransaction(index)}>Видалити</button>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <TransactionList
+        transactions={transactions}
+        updateTransition={updateTransition}
+        deleteTransaction={deleteTransaction}
+      />
 
       <div>
         <strong>Баланс:</strong> {income - expenses}
