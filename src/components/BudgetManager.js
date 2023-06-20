@@ -53,7 +53,7 @@ const BudgetManager = () => {
     setTransactionType("");
   };
 
-  const editTransition = (index) => {
+  const updateTransition = (index) => {
     const transaction = transactions[index];
     setTransactionType(transaction.type);
     setEditMode(true);
@@ -108,7 +108,9 @@ const BudgetManager = () => {
           {transactions.map((transaction, index) => (
             <li key={index}>
               {transaction.name}: {transaction.amount} ({transaction.type})
-              <button onClick={() => editTransition(index)}>Редагувати</button>
+              <button onClick={() => updateTransition(index)}>
+                Редагувати
+              </button>
               <button onClick={() => deleteTransaction(index)}>Видалити</button>
             </li>
           ))}

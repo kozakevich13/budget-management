@@ -1,13 +1,40 @@
+import React, { useState, useEffect } from "react";
+
 const TransactionForm = ({
   transactionType,
   chooseTransitionType,
   transactionFormSubmit,
   editMode,
   editTransaction,
-  editTransactionData,
 }) => {
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState("");
+
+  useEffect(() => {
+    if (editMode) {
+      setName(editTransaction.name);
+      setAmount(editTransaction.amount);
+    } else {
+      setName("");
+      setAmount("");
+    }
+  }, [editMode, editTransaction]);
+
+  const changeName = (e) => {
+    setName(e.target.value);
+  };
+
+  const changeAmount = (e) => {
+    setAmount(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    transactionFormSubmit(e, name, parseFloat(amount));
+  };
+
   return (
-    <form onSubmit={transactionFormSubmit}>
+    <form onSubmit={handleSubmit}>
       <h3>{editMode ? "Редагувати транзакцію" : "Додати транзакцію"}</h3>
       <div>
         <label>
@@ -35,8 +62,8 @@ const TransactionForm = ({
           type="text"
           id="transactionName"
           name="name"
-          value={editTransaction.name}
-          onChange={editTransactionData}
+          value={name}
+          onChange={changeName}
           required
         />
       </div>
@@ -46,8 +73,8 @@ const TransactionForm = ({
           type="number"
           id="transactionAmount"
           name="amount"
-          value={editTransaction.amount}
-          onChange={editTransactionData}
+          value={amount}
+          onChange={changeAmount}
           required
         />
       </div>
