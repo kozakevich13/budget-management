@@ -18,11 +18,14 @@ const BudgetManager = () => {
     setTransactionType(e.target.value);
   };
 
-  const transactionFormSubmit = (e) => {
+  const transactionFormSubmit = (e, name, amount) => {
     e.preventDefault();
-    const name = e.target.elements.name.value;
-    const amount = parseFloat(e.target.elements.amount.value);
-    const newTransaction = { name, amount, type: transactionType };
+    const newTransaction = {
+      name,
+      amount,
+      type: transactionType,
+      createdAt: Date.now(),
+    };
 
     if (editMode) {
       const updatedTransactions = [...transactions];
@@ -107,7 +110,8 @@ const BudgetManager = () => {
         <ul>
           {transactions.map((transaction, index) => (
             <li key={index}>
-              {transaction.name}: {transaction.amount} ({transaction.type})
+              {transaction.name}: {transaction.amount} ({transaction.type}) -{" "}
+              {new Date(transaction.createdAt).toLocaleString()}
               <button onClick={() => updateTransition(index)}>
                 Редагувати
               </button>
