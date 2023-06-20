@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+.form-input {
+  width: 30%;
+  margin: 0 auto;
+}
+
+.list-item {
+  width: 50%;
+  margin: 0 auto;
+}

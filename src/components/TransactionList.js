@@ -1,23 +1,34 @@
 import React from "react";
+import { List, Button } from "antd";
 
 const TransactionList = ({
   transactions,
   updateTransition,
   deleteTransaction,
 }) => {
+  const renderItem = (transaction, index) => {
+    return (
+      <div className="list-item">
+        <List.Item
+          key={index}
+          actions={[
+            <Button onClick={() => updateTransition(index)}>Редагувати</Button>,
+            <Button onClick={() => deleteTransaction(index)}>Видалити</Button>,
+          ]}
+        >
+          <List.Item.Meta
+            title={`${transaction.name}: ${transaction.amount} (${transaction.type})`}
+            description={new Date(transaction.createdAt).toLocaleString()}
+          />
+        </List.Item>
+      </div>
+    );
+  };
+
   return (
     <div>
       <h3>Транзакція:</h3>
-      <ul>
-        {transactions.map((transaction, index) => (
-          <li key={index}>
-            {transaction.name}: {transaction.amount} ({transaction.type}) -{" "}
-            {new Date(transaction.createdAt).toLocaleString()}
-            <button onClick={() => updateTransition(index)}>Редагувати</button>
-            <button onClick={() => deleteTransaction(index)}>Видалити</button>
-          </li>
-        ))}
-      </ul>
+      <List dataSource={transactions} renderItem={renderItem} />
     </div>
   );
 };

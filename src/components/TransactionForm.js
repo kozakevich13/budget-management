@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Input, Radio, Button } from "antd";
 
 const TransactionForm = ({
   transactionType,
@@ -37,28 +38,14 @@ const TransactionForm = ({
     <form onSubmit={handleSubmit}>
       <h3>{editMode ? "Редагувати транзакцію" : "Додати транзакцію"}</h3>
       <div>
-        <label>
-          <input
-            type="radio"
-            value="дохід"
-            checked={transactionType === "дохід"}
-            onChange={chooseTransitionType}
-          />
-          Дохід
-        </label>
-        <label>
-          <input
-            type="radio"
-            value="витрати"
-            checked={transactionType === "витрати"}
-            onChange={chooseTransitionType}
-          />
-          Витрата
-        </label>
+        <Radio.Group value={transactionType} onChange={chooseTransitionType}>
+          <Radio value="дохід">Дохід</Radio>
+          <Radio value="витрати">Витрата</Radio>
+        </Radio.Group>
       </div>
-      <div>
+      <div className="form-input">
         <label htmlFor="transactionName">Назва:</label>
-        <input
+        <Input
           type="text"
           id="transactionName"
           name="name"
@@ -67,9 +54,9 @@ const TransactionForm = ({
           required
         />
       </div>
-      <div>
+      <div className="form-input">
         <label htmlFor="transactionAmount">Сума:</label>
-        <input
+        <Input
           type="number"
           id="transactionAmount"
           name="amount"
@@ -78,7 +65,7 @@ const TransactionForm = ({
           required
         />
       </div>
-      <button type="submit">{editMode ? "Зберегти" : "Додати"}</button>
+      <Button htmlType="submit">{editMode ? "Зберегти" : "Додати"}</Button>
     </form>
   );
 };

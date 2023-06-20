@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Button } from "antd";
 import TransactionForm from "./TransactionForm";
 import TransactionList from "./TransactionList";
 
@@ -108,7 +109,10 @@ const BudgetManager = () => {
     <div>
       <h2>Управління бюджетом</h2>
       <div>
-        <button onClick={() => setShowFrom(true)}>Транзакції</button>
+        <strong>Баланс:</strong> {income - expenses}
+      </div>
+      <div>
+        <Button onClick={() => setShowFrom(true)}>Транзакції</Button>
       </div>
 
       {showFrom && (
@@ -127,10 +131,6 @@ const BudgetManager = () => {
         updateTransition={updateTransition}
         deleteTransaction={deleteTransaction}
       />
-
-      <div>
-        <strong>Баланс:</strong> {income - expenses}
-      </div>
     </div>
   );
 };
